@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="10">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>{$title} - {$settings.nama_instansi}</title>
+    <link rel="icon" href="{?=url()?}/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="{?=url()?}/assets/css/bootstrap.min.css">
+    <link href="{?=url()?}/assets/css/font-awesome.css" rel="stylesheet">
+    <script src="{?=url()?}/assets/jscripts/jquery.min.js"></script>
+    <script src="{?=url()?}/assets/jscripts/bootstrap.min.js"></script>
+    <style media="screen">
+      body {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        color: #337ab7;
+		font-weight: 5px;
+      	background: #ffffff;
+      	height:calc(100vh);
+      	width:100%;
+      }
+      footer {
+          position: fixed;
+          right: 0px;
+          bottom: 0px;
+          height: 40px;
+          width: calc(100% - 0px);
+          font-size: 14px;
+          color: #fff;
+      }
+      footer a, footer a:hover {
+        color: #fff;
+      }
+      tr:nth-child(even) {color: #337ab7;}
+	  
+	  .antrian {
+		text-align:center;
+		font-size:20px;
+		border-radius:15px; 
+		color:red; 
+		float:left; 
+		margin-top:5px;
+		background:yellow;
+		box-shadow: 2px 2px 5px #696969;
+		width:45%;
+	  }
+	  
+	  tr:nth-child(odd) .antrian{
+		text-align:center;
+		border-radius:15px; 
+		font-size:20px;
+		color:red; 
+		margin-top:5px;
+		float:left; 
+		background:yellow;
+		box-shadow: 2px 2px 5px #A9A9A9;
+		width:45%;
+	  }
+	  
+	  .terlayani {
+		text-align:center;
+		border-radius:15px; 
+		font-size:20px;
+		color:black;
+		margin-top:5px;
+		float:right;
+		box-shadow: 2px 2px 5px #696969;
+		background:#00FF7F; 
+		width:45%;
+	  }
+	  
+	  tr:nth-child(odd) .terlayani {
+		text-align:center;
+		border-radius:15px; 
+		font-size:20px;
+		color:black;
+		margin-top:5px;
+		float:right;
+		box-shadow: 2px 2px 5px #A9A9A9;
+		background:#00FF7F; 
+		width:45%;
+	  }
+	  
+	  .noantrian {
+		position: relative;
+		top:20%;
+		text-align:center;
+		border-radius:5px; 
+		color:black;
+		margin-top:5px;
+		float:left;
+		box-shadow: 2px 2px 5px #696969;
+		background:#a1f0f7; 
+		width:100%;
+	  }
+	  
+	  .namapasien {
+		position: relative;
+		top:20%;
+		text-align:center;
+		border-radius:5px; 
+		color:black;
+		margin-top:5px;
+		float:left;
+		box-shadow: 2px 2px 5px #696969;
+		background:#a1f0f7; 
+		width:100%;
+	  }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+  <h1 class="display-3 text-center text-white m-3"><img class="logo" src="{?=url()?}/{$logo}" alt="" width="60px"> Antrian Poliklinik {$settings.nama_instansi}</h1>
+  <table class="table table-bordered table-striped lead text-primary" style="height: 75vh;">
+    <thead class="bg-primary">
+      <tr>
+        <th>Dokter/Klinik</th>
+        <!--<th>Dalam Pemeriksaan</th>-->
+        <th>Nomor Urut Berikutnya</th>
+      </tr>
+    </thead>
+    <tbody>
+      {loop: $display}
+      <tr>
+        <th width="30%">
+			<div>
+				{$value.nm_dokter}<br>
+				<small>{$value.nm_poli}</small>
+			</div>
+			<div class="antrian">
+				Jumlah Antrian<br>{$value.dalam_antrian.jumlah}
+			</div>
+			<div class="terlayani">
+				Terlayani<br>{$value.sudah_dilayani.jumlah}
+			</div>
+		</th>
+        <!--<td width="20%">
+			<div class="noantrian">
+				<strong>{if: empty($value.dalam_pemeriksaan)}Kosong{else}NO. ANTRIAN: {$value.dalam_pemeriksaan.no_reg}<br>
+			</div>
+			<div class="namapasien">
+				{$value.dalam_pemeriksaan.nm_pasien}{/if}</strong>
+			</div>
+		</td>-->
+        <td>
+          <!--<marquee scrollamount="5">-->
+            {if: !empty($value.selanjutnya)}
+              {loop: $value.selanjutnya as $data}
+                - {$data.nm_pasien}
+                <!--- {$data.nm_pasien} (<strong>{$data.no_reg} - {$value.jam_mulai}</strong>)-->
+              {/loop}
+            {/if}
+          <!--</marquee>-->
+        </td>
+      </tr>
+      {/loop}
+    </tbody>
+  </table>
+  <!--
+  <div class="row" style="bottom:0;position:absolute;width:100%;background-color:#fff;color:#ff0000;margin-top:20px;margin-bottom:40px;">
+    <h3 class="display-6"><marquee>{$running_text}</marquee></h3>
+  </div>
+  -->
+</div>
+<footer class="visible-lg visible-md bg-primary" style="padding:10px;z-index:1000;">
+  <div class="canvas">
+    <p class="pull-right">
+      Made with <i class="fa fa-heart text-danger"></i> by <a href="https://basoro.id/" target="_blank"><b>drg. F. Basoro</b>.</a>
+      {$powered}.
+    </p>
+    <p><i class="fa fa-fw fa-calendar"></i> <span>{$tanggal}</span> <i class="fa fa-fw fa-clock-o"></i><span id="clock"></span> <i class="fa fa-fw fa-user"></i> <span>{?= sprintf('Login sebagai <strong>%s</strong>', $username) ?}</span></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<div class="item active">
+  <!-- <div class="card-body" style="padding-left: 15px;padding-right: 15px;">
+    <div class="card bg-primary" style="border:2px solid #ddd;border-radius:10px;height: 75vh;"> -->
+      <div class="row">
+        <div class="col text-center text-capitalize">
+          <div class="panel panel-default">
+            <div class="panel-body text-center bg-success" style="height:400px;">
+              <h2 class="header-title" style="color:#1A3636;font-weight:bold">ANTREAN SELANJUTNYA</h2>
+              {loop: $display}
+              {if: !empty($value.selanjutnya)}
+              {loop: $value.selanjutnya as $data}
+                  <div class="col-lg-3" style="color:black;">
+                <div class="" style="background-color: rgb(255, 255, 255); padding:1px; margin-bottom:33px; border-radius:10px;">
+                  <h2 class="text-center ">{$value.nm_poli}</h2>
+                  <h1 style="font-size:60px;">
+                    {$data.no_reg}
+                  </h1>
+                  <h2 style="font-weight: bold;">
+                    {?=substr($data.nm_pasien, 0, 20)?}
+                  </h2>
+                  <h3 class="text-center">{$value.nm_dokter}</h3>
+                  <br>
+                </div>
+              </div>
+              {/loop}
+              {/if}
+              
+            </div>
+        </div>
+      <!-- </div> -->
+      <!-- {if: isset($slug[4])}
+      </marquee>
+      {/if}
+      {/loop} -->
+    <!-- </div> -->
+    <!-- {if: !isset($slug[4])}
+    </marquee>
+    {/if} -->
+  <!-- </div> -->
+    </div>
+  </div>
+</div>
+
+<div style="display:none">{$powered}</div>
